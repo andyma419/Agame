@@ -6,6 +6,7 @@ Hero::Hero(){
              run_pos = 0;
              nor_att_pos = 0;
              walk_pos = 0;
+             kick_pos = 0;
              walk_speed = 4;
              max_run_speed = 14;
              acc = walk_speed;
@@ -15,10 +16,14 @@ Hero::Hero(){
              is_run = false;
              is_stand = true;
              is_attack = false;
+             is_kick = false;
+             is_new_kick = false;
              is_new_nor_att = true;
              is_defence =false;
+             is_attacked = false;
              layer_num = 0;
              health=100;
+             allow_next_move = true;
           
 }
 
@@ -60,12 +65,27 @@ void Hero::nextNormAttackPos(){
      }  
 }     
 
+void Hero::nextKickPos(){
+    if(is_new_kick){
+      is_kick = true;
+      kick_pos++;
+      if(kick_pos==5)
+      is_new_kick = false;}
+      else {is_kick = false;
+         standPos();}
+         
+}
+
+
 void Hero::defencePos(){
   is_defence =true;
   nor_att_pos=0;     
      
 }
 
+void Hero::isAttackedPos(){  
+  is_attacked = true;     
+}
 
 
 
@@ -74,16 +94,19 @@ void Hero::standPos(){
      run_pos = 0;
      walk_pos = 0;
      nor_att_pos = 0;
+     kick_pos = 0;
 }
 
 
 
 int Hero::getHeroPos(){
     int pos;
-    if(is_run==true) {hero_pos=8; pos=hero_pos+run_pos;}
+    if (is_attacked==true) pos = 28;
+    else if(is_run==true) {hero_pos=8; pos=hero_pos+run_pos;}
     else if(is_walk==true) {hero_pos=0; pos=hero_pos+walk_pos;}
     else if(is_defence==true) pos = 22;
     else if(is_attack==true) {hero_pos=16;pos=hero_pos+nor_att_pos;}
+    else if(is_kick==true) {hero_pos=22;pos=hero_pos+kick_pos;}
     else pos=0;
     return pos;
 }
@@ -93,6 +116,7 @@ void Hero::posClear(){
   is_walk = false;
   is_attack = false;    
   is_defence = false; 
+  is_kick = false;
 }
 
     
@@ -119,8 +143,24 @@ void Hero::runRight(){
      speedUp();
      x=x+acc;
      nextRunPos();     
-
 }
+
+void Hero::walkTo(Point dst){
+ if(dst.x<x_old){
+   is_to_left = true;
+   x = x -  8;
+   nextWalkPos();
+   if(x<dst.x) x = dst.x;
+ }
+ else if(dst.x>x_old){
+   is_to_left = false;
+   x = x + 8;
+   if(x>dst.x) x = dst.x; 
+   nextWalkPos();
+  }
+ else {
+ standPos();}  
+ }
 
 
 

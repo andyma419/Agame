@@ -12,6 +12,8 @@ class Hero{
     int getHeroPos();
     void nextWalkPos();
     
+    
+    void walkTo(Point dst);
     void standPos();
     void speedUp();
     void speedDown();
@@ -19,7 +21,9 @@ class Hero{
     void runLeft();
     void runRight();
     void nextNormAttackPos();
+    void nextKickPos();
     void defencePos();
+    void isAttackedPos();
     void posClear();
     Point pt_start;
     Point pt_end;
@@ -28,14 +32,19 @@ class Hero{
     int y;
     int x_old;
     int y_old;
-    int walk_speed;
-     bool is_new_nor_att;  
-     int layer_num;
-     int health;
-     bool is_attack;
-     bool is_defence;
-     bool is_block;
-     bool is_to_left;
+    int move_counter;
+    bool is_new_nor_att; 
+    bool is_new_kick; 
+    int layer_num;
+    int health;
+    bool is_attack;
+    bool is_defence;
+    bool is_block;
+    bool is_kick;
+    bool is_to_left;
+    bool allow_next_move;
+    bool is_attacked;
+    bool counter_is_started;
   
   private:  
     void nextRunPos();  
@@ -43,10 +52,12 @@ class Hero{
     int hero_pos;
     int nor_att_pos;
     int walk_pos;
+    int kick_pos;
     int max_run_speed;
     bool is_run;
     bool is_walk;
     bool is_stand;  
+    int walk_speed;
     
 };
 

@@ -2,18 +2,19 @@
 #include "math_aid.h"
 #include "hero.h"
 #include "scene.h"
-
+#include "bullet.h"
+#define VOL 100
 
 
 int main() 
 {	   
    //Hero Position
-    Point walk_s_r[23];
-    Point walk_e_r[23];
-    Point walk_s_l[23];
-    Point walk_e_l[23];    
+    Point walk_s_r[29];
+    Point walk_e_r[29];
+    Point walk_s_l[29];
+    Point walk_e_l[29];    
     //stand right
-    walk_s_r[0].setPoint(0,0);
+    walk_s_r[0].setPoint(10,0);
     //walk right
     walk_s_r[1].setPoint(120,0);
     walk_s_r[2].setPoint(180,0);
@@ -35,11 +36,20 @@ int main()
     walk_s_r[18].setPoint(67,515);
     walk_s_r[19].setPoint(132,515);
     walk_s_r[20].setPoint(229,515);
-    walk_s_r[21].setPoint(318,515);
-    
+    walk_s_r[21].setPoint(318,515);  
     //defence right
-    walk_s_r[22].setPoint(10,1084);
-          
+    walk_s_r[22].setPoint(10,1084); 
+        //kick
+    walk_s_r[23].setPoint(410,518);
+    walk_s_r[24].setPoint(485,518);  
+    walk_s_r[25].setPoint(559,518);
+    //walk_s_r[26].setPoint(559,518);
+    walk_s_r[26].setPoint(640,518);
+    walk_s_r[27].setPoint(712,518);
+    // be attacked
+    walk_s_r[28].setPoint(10,865);
+    
+           
     //stand right  
     walk_e_r[0].setPoint(60,80);
     //walk right
@@ -66,9 +76,18 @@ int main()
     walk_e_r[20].setPoint(75,75);
     walk_e_r[21].setPoint(65,75);
     //defence
-    walk_e_r[22].setPoint(60,80);     
+    walk_e_r[22].setPoint(60,80);
+        //kick
+    walk_e_r[23].setPoint(65,75);
+    walk_e_r[24].setPoint(65,75);
+    walk_e_r[25].setPoint(70,75);
+    walk_e_r[26].setPoint(65,75);
+    walk_e_r[27].setPoint(65,75);
+    // be attacked
+    walk_e_r[28].setPoint(65,80);
+            
     //stand left
-    walk_s_l[0].setPoint(0,0);   
+    walk_s_l[0].setPoint(10,0);   
     //walk left
     walk_s_l[1].setPoint(116,0);
     walk_s_l[2].setPoint(180,0);
@@ -93,6 +112,15 @@ int main()
     walk_s_l[21].setPoint(329,515);
     //defence
     walk_s_l[22].setPoint(17,1084);
+    //kick 
+    walk_s_l[23].setPoint(410,518);
+    walk_s_l[24].setPoint(483,518);
+    walk_s_l[25].setPoint(558,518);
+    walk_s_l[26].setPoint(638,518);
+    walk_s_l[27].setPoint(712,518);
+
+    //be attacked
+    walk_s_l[28].setPoint(10,865);
    
     //stand left
     walk_e_l[0].setPoint(60,80);  
@@ -119,18 +147,70 @@ int main()
     walk_e_l[19].setPoint(90,75);
     walk_e_l[20].setPoint(75,75);
     walk_e_l[21].setPoint(65,75);
+    // defence
     walk_e_l[22].setPoint(60,80);
-    
-   
+    //kick
+    walk_e_l[23].setPoint(65,75);
+    walk_e_l[24].setPoint(65,75);
+    walk_e_l[25].setPoint(70,75);
+    walk_e_l[26].setPoint(65,75);
+    walk_e_l[27].setPoint(65,75);
+
+    // be attacked
+    walk_e_l[28].setPoint(65,80);
+
+
      
     //enemy
-    Point enemy_s_r[5];
-    Point enemy_e_r[5];
-    Point enemy_s_l[5];
-    Point enemy_e_l[5]; 
+    int enemy_cnt =50;
+    Point dst;
+    dst.setPoint(100,100);
+    Point enemy_s_r[15];
+    Point enemy_e_r[15];
+    Point enemy_s_l[15];
+    Point enemy_e_l[15]; 
     //stand
-    enemy_s_l[0].setPoint(100,0);
+    enemy_s_l[0].setPoint(100,10);
+    enemy_s_l[1].setPoint(0,265);
+    enemy_s_l[2].setPoint(85,265);
+    enemy_s_l[3].setPoint(169,265);
+    enemy_s_l[4].setPoint(259,265);
+    enemy_s_l[5].setPoint(347,265);
+    enemy_s_l[6].setPoint(429,265);
+    enemy_s_l[7].setPoint(511,265);
+    enemy_s_l[8].setPoint(615,265);
+    
     enemy_e_l[0].setPoint(68,80);
+    enemy_e_l[1].setPoint(70,60);
+    enemy_e_l[2].setPoint(70,60);
+    enemy_e_l[3].setPoint(70,60);
+    enemy_e_l[4].setPoint(70,60);
+    enemy_e_l[5].setPoint(70,60);
+    enemy_e_l[6].setPoint(70,60);
+    enemy_e_l[7].setPoint(70,60);
+    enemy_e_l[8].setPoint(70,60);
+    
+    enemy_s_r[0].setPoint(100,10);
+    enemy_s_r[1].setPoint(10,265);
+    enemy_s_r[2].setPoint(102,265);
+    enemy_s_r[3].setPoint(192,265);
+    enemy_s_r[4].setPoint(277,265);
+    enemy_s_r[5].setPoint(358,265);
+    enemy_s_r[6].setPoint(444,265);
+    enemy_s_r[7].setPoint(526,265);
+    enemy_s_r[8].setPoint(620,265);
+    
+    enemy_e_r[0].setPoint(68,80);
+    enemy_e_r[1].setPoint(70,60);
+    enemy_e_r[2].setPoint(70,60);
+    enemy_e_r[3].setPoint(70,60);
+    enemy_e_r[4].setPoint(70,60);
+    enemy_e_r[5].setPoint(70,60);
+    enemy_e_r[6].setPoint(70,60);
+    enemy_e_r[7].setPoint(70,60);
+    enemy_e_r[8].setPoint(70,60);
+     
+    
     //enemy_s_r[0]
     //enemy_e_r[0]
     
@@ -138,11 +218,17 @@ int main()
     //bullet
     Point bullet_s_l;
     Point bullet_e_l;
+    Point bullet_s_r;
+    Point bullet_e_r;
     bullet_s_l.setPoint(700,965);
     bullet_e_l.setPoint(100,35);
-    Point bullet_pos;
-    bool bullet_life = true;
-    int bullet_cnt=0;
+    bullet_s_r.setPoint(700,965);
+    bullet_e_r.setPoint(100,35);
+    
+    Bullet my_bullet;
+    my_bullet.life = true;
+    my_bullet.counter = 0;
+   
     
    
     BITMAP *hero;
@@ -151,6 +237,7 @@ int main()
     BITMAP *enemy_back;
     BITMAP *scene; 
     BITMAP *scene2;
+    BITMAP *setting;
     
     Hero my_hero;
     Hero my_enemy;
@@ -166,6 +253,8 @@ int main()
     set_color_depth(32);  
     install_sound(DIGI_AUTODETECT, MIDI_AUTODETECT, NULL) ;
     SAMPLE *sound_nor_att = load_sample("nor_att.wav");
+    SAMPLE *scream = load_sample("scream.wav");
+    SAMPLE *sound_kick = load_sample("kick.wav");
      if(sound_nor_att==0) allegro_message("sound file error");
     
 	set_gfx_mode(GFX_AUTODETECT_WINDOWED, 1100, 360, 0, 0);
@@ -175,6 +264,7 @@ int main()
     enemy_back= load_bitmap("hero3_back.bmp",NULL);
     scene     = load_bitmap("scene.bmp",NULL);
     scene2    = load_bitmap("scene2.bmp",NULL);   
+    setting   = load_bitmap("setting.bmp",NULL);
     BITMAP *buffer = NULL;
     buffer = create_bitmap(1100,360);
     int off_set = 0;
@@ -187,14 +277,34 @@ int main()
       my_hero.y_old = my_hero.y;
       my_enemy.x_old = my_enemy.x;
       my_enemy.y_old = my_enemy.y;
-      //play_sample(sound_nor_att,255,128,1000,0);
       off_set = 0;
 	  clear_keybuf();
 	  acquire_screen();
 	  my_hero.posClear();
+	  my_enemy.posClear();
 		  
 	  
 	  /********receive key start**********/  
+	  if(key[KEY_C]) 
+	  //setting
+	  { release_screen();
+        while(!key[KEY_B]){
+         clear_keybuf();     
+         acquire_screen();                      
+         //blit(scene2,buffer,0,0,0,0,1100,360); 
+         textprintf_ex(setting,font,190,200,makecol(0,0,0),makecol(255,255,255),"Level: 1");
+         textprintf_ex(setting,font,190,215,makecol(0,0,0),makecol(255,255,255),"Health: 100");
+         //textprintf_ex(setting,font,190,230,makecol(0,0,0),makecol(255,255,255),"Level");
+         blit(setting,buffer,0,0,384,0,332,360);                  
+         blit(buffer,screen,0,0,0,0,1100,360);      
+         release_screen();                
+         rest(100);	
+         clear_bitmap(buffer);
+       }                    
+         acquire_screen();
+      }
+	  	  
+	     	  
       if(key[KEY_UP]){
         is_move = true;
         my_hero.y=my_hero.y-4;
@@ -233,6 +343,7 @@ int main()
       }
       
       if(!key[KEY_S]) my_hero.is_new_nor_att = true;
+      if(!key[KEY_F])  my_hero.is_new_kick = true;
        
       //do other actions when no move command is received     
       if(is_move==false) {
@@ -245,15 +356,33 @@ int main()
         //normal attack                  
         else if(key[KEY_S]){
           my_hero.nextNormAttackPos();
-          if(my_hero.getHeroPos()==17) play_sample(sound_nor_att,255,255,1000,0);
+          if(my_hero.getHeroPos()==17) play_sample(sound_nor_att,VOL,VOL,1000,0);
         }                 
+        else if(key[KEY_F]){
+          my_hero.nextKickPos(); 
+          if(my_hero.getHeroPos()==25) play_sample(sound_kick,30,30,1000,0);
+        }  
         else {
           my_hero.standPos();
           my_hero.is_new_nor_att = true;
+          my_hero.is_new_kick = true;
         }
       }   
       
       /*****receive key end******/
+      
+      
+      
+      
+      //enemy AI
+      if(my_hero.x<my_enemy.x) my_enemy.is_to_left = true;
+      else my_enemy.is_to_left = false;
+      //my_enemy.standPos();
+      enemy_cnt--;
+      if(enemy_cnt==0){dst.x = rand()%500; enemy_cnt = 50;}
+      my_enemy.walkTo(dst);     
+      
+            
       //my_enemy.y = my_enemy.y + (rand()%14-7);
       //check collision  
       if(my_scene.checkCollision(my_hero)){
@@ -263,39 +392,40 @@ int main()
       if(my_scene.checkCollision(my_enemy)){
         my_enemy.y = my_enemy.y_old;                                    
       }
-      
-      
-      if(my_scene.checkCollision(my_hero,my_enemy)){
-        my_hero.x = my_hero.x_old;
-        my_hero.y = my_hero.y_old;
-      }
-      
-      
-      if(my_hero.x<my_enemy.x) my_enemy.is_to_left = true;
-      else my_enemy.is_to_left = false;
-      
-      
-         
-      
+               
       // enemy fire bullet
-      if(bullet_cnt!=30){
-        if(bullet_cnt==0)bullet_pos.y = my_enemy.y + 40;
-        bullet_pos.x = (my_enemy.x - 50)-bullet_cnt*20;    
-        bullet_cnt++;}
-      else {bullet_cnt=0; bullet_life=true;}
+      if(my_bullet.counter!=50){
+        if(my_bullet.counter==0) {my_bullet.bullet_pos.y = my_enemy.y + 30; my_bullet.is_to_left = my_enemy.is_to_left;}
+        if(my_bullet.is_to_left) my_bullet.bullet_pos.x = my_enemy.x - 50-my_bullet.counter*20;
+        else my_bullet.bullet_pos.x = my_enemy.x + 30+ my_bullet.counter*20;
+        my_bullet.counter++;
+      }
+      else {my_bullet.counter=0; my_bullet.life=true;}
           
       //my_enemy.y = my_enemy.y+(rand()%3-1)*2;
       //my_enemy.x = my_enemy.x+(rand()%3-1)*4;
       
-       if(my_scene.checkCollision(my_hero,bullet_pos)){
+       if(my_scene.checkCollision(my_hero,my_bullet)){
                                                        
-          if(bullet_life==true&&my_hero.is_block==false) my_hero.health = my_hero.health- 10;                                               
-                                                       
-         bullet_life =false;
-                                                      
+          if(my_bullet.life==true&&my_hero.is_block==false) {
+            my_hero.health = my_hero.health- 10;
+            my_hero.isAttackedPos();
+            my_hero.counter_is_started = true;
+            my_hero.move_counter=10;
+            play_sample(scream,VOL,VOL,1000,0);}                                            
+                                                                                                       
        }
-      
-      
+       if(my_hero.counter_is_started) {
+         my_hero.move_counter--;
+         my_hero.x = my_hero.x_old;
+         my_hero.y = my_hero.y_old;
+         if(my_hero.move_counter==0) {
+           my_hero.is_attacked = false;
+           my_hero.counter_is_started = false;
+           }
+       }
+       
+            
       // check if attack is valid
       int att_range=0;
       att_range = my_enemy.x - my_hero.x;     
@@ -306,6 +436,8 @@ int main()
            
       if(my_hero.y>=my_enemy.y) {my_hero.layer_num=0;my_enemy.layer_num=1;}
       else  {my_hero.layer_num=1;my_enemy.layer_num=0;}
+      if(my_hero.y+40<=my_bullet.y) my_bullet.layer_num = 2;
+      else my_bullet.layer_num = -1;
       
       my_scene.chooseScene(my_hero);
       if(my_scene.scene_num==1){
@@ -317,22 +449,29 @@ int main()
       
       
       /********Display******************/
-     
-      if(bullet_life)masked_blit(enemy_back,buffer,bullet_s_l.x,bullet_s_l.y,bullet_pos.x,bullet_pos.y,bullet_e_l.x,bullet_e_l.y);
-      my_enemy.standPos();
-      
-      my_enemy.getPictureCoord(enemy_s_l[my_enemy.getHeroPos()],enemy_e_l[my_enemy.getHeroPos()]);
+     if(my_hero.layer_num<my_bullet.layer_num){
+       if(my_bullet.is_to_left)
+       if(my_bullet.life)masked_blit(enemy_back,buffer,bullet_s_l.x,bullet_s_l.y,my_bullet.bullet_pos.x,my_bullet.bullet_pos.y,bullet_e_l.x,bullet_e_l.y);
+       if(!my_bullet.is_to_left) 
+       if(my_bullet.life)masked_blit(enemy,buffer,bullet_s_r.x,bullet_s_r.y,my_bullet.bullet_pos.x,my_bullet.bullet_pos.y,bullet_e_r.x,bullet_e_r.y);  
+     }
       
       if(my_hero.layer_num<my_enemy.layer_num){
-        if(my_enemy.is_to_left)
-      masked_blit(enemy_back,buffer,my_enemy.pt_start.x,my_enemy.pt_start.y,my_enemy.x,my_enemy.y,my_enemy.pt_end.x,my_enemy.pt_end.y);
-        else
-      masked_blit(enemy,buffer,my_enemy.pt_start.x,my_enemy.pt_start.y,my_enemy.x,my_enemy.y,my_enemy.pt_end.x,my_enemy.pt_end.y);  
+        if(my_enemy.is_to_left){
+      my_enemy.getPictureCoord(enemy_s_l[my_enemy.getHeroPos()],enemy_e_l[my_enemy.getHeroPos()]);
+      masked_blit(enemy_back,buffer,my_enemy.pt_start.x,my_enemy.pt_start.y,my_enemy.x,my_enemy.y,my_enemy.pt_end.x,my_enemy.pt_end.y);}
+        else{
+      my_enemy.getPictureCoord(enemy_s_r[my_enemy.getHeroPos()],enemy_e_r[my_enemy.getHeroPos()]); 
+      masked_blit(enemy,buffer,my_enemy.pt_start.x,my_enemy.pt_start.y,my_enemy.x,my_enemy.y,my_enemy.pt_end.x,my_enemy.pt_end.y);}  
       }
+      textprintf_ex(buffer,font,900,230,makecol(0,0,0),makecol(255,255,255),"index:%d",my_hero.getHeroPos());
       textprintf_ex(buffer,font,900,240,makecol(0,0,0),makecol(255,255,255),"Hero Health:%d",my_hero.health);
       textprintf_ex(buffer,font,900,250,makecol(0,0,0),makecol(255,255,255),"Enemy Health:%d",my_enemy.health);
       textprintf_ex(buffer,font,900,260,makecol(0,0,0),makecol(255,255,255),"Hero x:%d y:%d",my_hero.x,my_hero.y);
       textprintf_ex(buffer,font,900,270,makecol(0,0,0),makecol(255,255,255),"Enemy x:%d y:%d",my_enemy.x,my_enemy.y);
+      textprintf_ex(buffer,font,900,270,makecol(0,0,0),makecol(255,255,255),"Bullet x:%d y:%d",my_bullet.bullet_pos.x,my_bullet.bullet_pos.y);
+      
+       //textprintf_ex(buffer,font,900,280,makecol(0,0,0),makecol(255,255,255),"Index %d %d %d",my_enemy.getHeroPos(),my_enemy.pt_start.x,my_enemy.pt_start.y);
           
       if(my_hero.is_to_left){
         my_hero.getPictureCoord(walk_s_l[my_hero.getHeroPos()],walk_e_l[my_hero.getHeroPos()]);  
@@ -345,26 +484,49 @@ int main()
         masked_blit(hero, buffer, my_hero.pt_start.x,my_hero.pt_start.y,my_hero.x,my_hero.y,my_hero.pt_end.x,my_hero.pt_end.y);
       }
       
-        
+     if(my_hero.layer_num>my_bullet.layer_num){
+       if(my_bullet.is_to_left)
+       if(my_bullet.life)masked_blit(enemy_back,buffer,bullet_s_l.x,bullet_s_l.y,my_bullet.bullet_pos.x,my_bullet.bullet_pos.y,bullet_e_l.x,bullet_e_l.y);
+       if(!my_bullet.is_to_left) 
+       if(my_bullet.life)masked_blit(enemy,buffer,bullet_s_r.x,bullet_s_r.y,my_bullet.bullet_pos.x,my_bullet.bullet_pos.y,bullet_e_r.x,bullet_e_r.y);  
+     }
+      
       if(my_hero.layer_num>my_enemy.layer_num){
-        if(my_enemy.is_to_left) 
-      masked_blit(enemy_back,buffer,my_enemy.pt_start.x,my_enemy.pt_start.y,my_enemy.x,my_enemy.y,my_enemy.pt_end.x,my_enemy.pt_end.y);  
-        else
-         masked_blit(enemy,buffer,my_enemy.pt_start.x,my_enemy.pt_start.y,my_enemy.x,my_enemy.y,my_enemy.pt_end.x,my_enemy.pt_end.y);  
+        if(my_enemy.is_to_left) {
+      my_enemy.getPictureCoord(enemy_s_l[my_enemy.getHeroPos()],enemy_e_l[my_enemy.getHeroPos()]);
+      masked_blit(enemy_back,buffer,my_enemy.pt_start.x,my_enemy.pt_start.y,my_enemy.x,my_enemy.y,my_enemy.pt_end.x,my_enemy.pt_end.y); } 
+        else{
+         my_enemy.getPictureCoord(enemy_s_r[my_enemy.getHeroPos()],enemy_e_r[my_enemy.getHeroPos()]);
+         masked_blit(enemy,buffer,my_enemy.pt_start.x,my_enemy.pt_start.y,my_enemy.x,my_enemy.y,my_enemy.pt_end.x,my_enemy.pt_end.y); }
       }
         
 	  blit(buffer,screen,0,0,0,0,1100,360);
 	  clear_bitmap(buffer);
 	  release_screen();
 	  is_move=false;
-      rest(100);		
+	  
+      if(my_scene.checkCollision(my_hero,my_bullet)){
+                                                                                                                                       
+         my_bullet.life=false;
+                                                      
+       }
+      rest(100);
+      
+      		
 	}
 	
 	destroy_bitmap(hero);
 	destroy_bitmap(hero_back);
-	destroy_bitmap(scene);
-	
-	
+	destroy_bitmap(scene);	
 	return 0;
 }
 END_OF_MAIN();
+
+
+
+
+
+
+
+
+

@@ -33,12 +33,14 @@ bool Scene::checkCollision(Hero& hero1, Hero& hero2){
      else return false;
 }
 
-bool Scene::checkCollision(Hero& hero, Point& bullet){
-     int y_off_pos = bullet.y - hero.y;
-     int x_off_pos = bullet.x - hero.x;
-     if(x_off_pos>=-30&&x_off_pos<=35&&y_off_pos>=10&&y_off_pos<=40)return true;
-     else return false;     
+bool Scene::checkCollision(Hero& hero, Bullet& bullet){
+     int y_off_pos = bullet.bullet_pos.y - hero.y;
+     int x_off_pos = bullet.bullet_pos.x - hero.x;
+     if(bullet.is_to_left&&x_off_pos>=-30&&x_off_pos<=35&&y_off_pos>=0&&y_off_pos<=40)return true;
+     if(!bullet.is_to_left&&x_off_pos<=-30&&x_off_pos>=-70&&y_off_pos>=0&&y_off_pos<=40)return true;
      
+     //else return false;     
+     return false;
 }
 
 

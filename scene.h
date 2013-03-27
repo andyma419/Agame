@@ -2,6 +2,7 @@
 #define SCENE_H
 
 #include "hero.h"
+#include "bullet.h"
 
 class Scene{
   public:
@@ -16,7 +17,7 @@ class Scene{
     bool checkCollision(Hero& hero1,Hero& hero2);
     
     //check collision with bullet
-    bool checkCollision(Hero& hero,Point& bullet);
+    bool checkCollision(Hero& hero,Bullet& bullet);
     int scene_num;
     
     
